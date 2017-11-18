@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<mvvm:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FifaApp.Views.CompetitionPage">
+             xmlns:mvvm="clr-namespace:FifaApp.Mvvm;assembly=FifaApp"
+             xmlns:viewModels="clr-namespace:FifaApp.ViewModels;assembly=FifaApp"
+             x:Class="FifaApp.Views.CompetitionPage"
+               Title="{Binding Title}">
+    <mvvm:ViewBase.BindingContext>
+        <viewModels:CompetitionPageViewModel/>
+    </mvvm:ViewBase.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
     </ContentPage.Content>
-</ContentPage>
+</mvvm:ViewBase>

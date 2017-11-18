@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FifaApp.Client;
 using FifaApp.Models;
 using FifaApp.Mvvm;
+using FifaApp.Views;
 
 namespace FifaApp.ViewModels
 {
@@ -41,19 +42,35 @@ namespace FifaApp.ViewModels
                 {
                     _selectedCompetition = value;
                     OnPropertyChanged();
+                    OnCompetitionSelected(_selectedCompetition);
                 }
             }
         }
 
+        public async void OnCompetitionSelected(Competition selected)
+        {
+            if (selected != null)
+            {
+                SelectedCompetition = null;
+                await NavigateToPageAsync<CompetitionPage>(selected);
+            }
+        }
+        public override async void Init(object param = null)
+        {
+            await LoadAsync();
+        }
+
         public async Task LoadAsync()
         {
+            if (Competitions?.Count > 0)
+            {
+                return;
+            }
+            IsBusy = true;
             var result = await _fifaClient.CurrentAsync();
+            IsBusy = false;
 
             Competitions = result.Data.Competitions;
-            if (Competitions != null)
-            {
-                SelectedCompetition = Competitions[2];
-            }
         }
     }
 }

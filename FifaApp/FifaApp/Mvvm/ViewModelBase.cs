@@ -1,6 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using FifaApp.Annotations;
+using Xamarin.Forms;
 
 namespace FifaApp.Mvvm
 {
@@ -29,12 +32,48 @@ namespace FifaApp.Mvvm
                 }
             }
         }
-
         public bool IsNotBusy => !IsBusy;
 
-        public virtual void Init()
+        private string _title;
+
+        public string Title
         {
-            
+            get => _title;
+            set
+            {
+                if (_title != value)
+                {
+                    _title = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public virtual void Init(object param = null)
+        {
+
+        }
+
+        protected Task NavigateToPageAsync<T>(object param) where T : ViewBase
+        {
+            if (Application.Current.MainPage is NavigationPage navigationPage)
+            {
+                return navigationPage.Navigation.PushAsync(
+                    (ViewBase)Activator.CreateInstance(typeof(T), param));
+            }
+
+            return Task.FromResult((object)null);
+        }
+
+        protected Task NavigateToPageAsync<T>() where T : Page
+        {
+            if (Application.Current.MainPage is NavigationPage navigationPage)
+            {
+                return navigationPage.Navigation.PushAsync(
+                    Activator.CreateInstance<T>());
+            }
+
+            return Task.FromResult((object)null);
         }
 
     }
