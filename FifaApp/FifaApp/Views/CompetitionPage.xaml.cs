@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace FifaApp
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace FifaApp.Views
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CompetitionPage : ContentPage
     {
-        public MainPage()
+        public CompetitionPage()
         {
             InitializeComponent();
         }

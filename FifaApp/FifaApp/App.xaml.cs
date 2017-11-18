@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using FifaApp.Views;
 using Xamarin.Forms;
 
 namespace FifaApp
@@ -13,7 +13,7 @@ namespace FifaApp
         {
             InitializeComponent();
 
-            MainPage = new FifaApp.MainPage();
+            MainPage = new NavigationPage(new HomePage());
         }
 
         protected override void OnStart()
