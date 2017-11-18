@@ -8,6 +8,10 @@ namespace FifaApp.Client
 {
     public class FifaClient
     {
+        private static FifaClient _current;
+
+        public static FifaClient Current => _current ?? (_current = new FifaClient());
+
         private RESTfulService _restfulService;
 
         public RESTfulService RESTfulService => _restfulService ?? (_restfulService = new RESTfulService());

@@ -4,11 +4,68 @@
              xmlns:mvvm="clr-namespace:FifaApp.Mvvm;assembly=FifaApp"
              xmlns:viewModels="clr-namespace:FifaApp.ViewModels;assembly=FifaApp"
              x:Class="FifaApp.Views.CompetitionPage"
-               Title="{Binding Title}">
+               Title="{Binding Title}"
+               x:Name="Root">
     <mvvm:ViewBase.BindingContext>
         <viewModels:CompetitionPageViewModel/>
     </mvvm:ViewBase.BindingContext>
     <ContentPage.Content>
+        <ListView ItemsSource="{Binding Competition.Matches}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="6"
+                              BackgroundColor="White">
 
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.MatchCommand, Source={x:Reference Root}}"
+                                                      CommandParameter="{Binding}"/>
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.TeamCommand, Source={x:Reference Root}}"
+                                                          CommandParameter="{Binding HomeTeamId}" />
+                                </StackLayout.GestureRecognizers>
+                                <Image Source="{Binding HomeLogoImage}"
+                                       HeightRequest="40"
+                                       WidthRequest="40" />
+                                <Label Text="{Binding HomeTeamEn}"
+                                       VerticalOptions="Center" />
+                            </StackLayout>
+                            <StackLayout Grid.Column="1">
+                                <Label Text="{Binding Score}"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Date, StringFormat='{0:dd-MM-yyyy HH-mm}'}"
+                                       HorizontalOptions="Center"
+                                       FontSize="10"
+                                       HorizontalTextAlignment="Center" />
+                            </StackLayout>
+                            <StackLayout Grid.Column="2"
+                                         HorizontalOptions="End"
+                                         Orientation="Horizontal">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.TeamCommand, Source={x:Reference Root}}"
+                                                          CommandParameter="{Binding AwayTeamId}" />
+                                </StackLayout.GestureRecognizers>
+                                <Label Text="{Binding AwayTeamEn}"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="End" />
+                                <Image Source="{Binding AwayLogoImage}"
+                                       HeightRequest="40"
+                                       WidthRequest="40" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </mvvm:ViewBase>
