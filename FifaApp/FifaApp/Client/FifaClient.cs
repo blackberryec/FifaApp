@@ -8,9 +8,10 @@ namespace FifaApp.Client
 {
     public class FifaClient
     {
-        private static FifaClient _current;
+        //Ap dung mvvm dang ki ben App.xaml.cs
+        //private static FifaClient _current;
 
-        public static FifaClient Current => _current ?? (_current = new FifaClient());
+        //public static FifaClient Current => _current ?? (_current = new FifaClient());
 
         private RESTfulService _restfulService;
 

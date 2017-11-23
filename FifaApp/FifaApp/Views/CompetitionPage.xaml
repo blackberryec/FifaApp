@@ -1,14 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<mvvm:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mvvm="clr-namespace:FifaApp.Mvvm;assembly=FifaApp"
-             xmlns:viewModels="clr-namespace:FifaApp.ViewModels;assembly=FifaApp"
              x:Class="FifaApp.Views.CompetitionPage"
                Title="{Binding Title}"
                x:Name="Root">
-    <mvvm:ViewBase.BindingContext>
-        <viewModels:CompetitionPageViewModel/>
-    </mvvm:ViewBase.BindingContext>
     <ContentPage.Content>
         <ListView ItemsSource="{Binding Competition.Matches}"
                   HasUnevenRows="True">
@@ -68,4 +63,4 @@
             </ListView.ItemTemplate>
         </ListView>
     </ContentPage.Content>
-</mvvm:ViewBase>
+</ContentPage>

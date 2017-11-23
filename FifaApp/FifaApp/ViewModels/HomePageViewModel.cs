@@ -4,6 +4,7 @@ using FifaApp.Client;
 using FifaApp.Models;
 using FifaApp.Mvvm;
 using FifaApp.Views;
+using Prism.Navigation;
 
 namespace FifaApp.ViewModels
 {
@@ -13,24 +14,12 @@ namespace FifaApp.ViewModels
         private List<Competition> _competitions;
         private Competition _selectedCompetition;
 
-        public HomePageViewModel()
-        {
-            _fifaClient = new FifaClient();
 
-            IsBusy = true;
-        }
 
         public List<Competition> Competitions
         {
             get => _competitions;
-            set
-            {
-                if (_competitions != value)
-                {
-                    _competitions = value;
-                    OnPropertyChanged();
-                }
-            }
+            set => SetProperty(ref _competitions, value);
         }
 
         public Competition SelectedCompetition
@@ -38,10 +27,8 @@ namespace FifaApp.ViewModels
             get => _selectedCompetition;
             set
             {
-                if (_selectedCompetition != value)
+                if (SetProperty( ref _selectedCompetition , value))
                 {
-                    _selectedCompetition = value;
-                    OnPropertyChanged();
                     OnCompetitionSelected(_selectedCompetition);
                 }
             }
@@ -52,11 +39,17 @@ namespace FifaApp.ViewModels
             if (selected != null)
             {
                 SelectedCompetition = null;
-                await NavigateToPageAsync<CompetitionPage>(selected);
+                await NavigationService.NavigateAsync("CompetitionPage",
+                    new NavigationParameters() {{"Competition" ,selected}});
             }
         }
-        public override async void Init(object param = null)
+        //public override async void Init(object param = null)
+        //{
+        //    await LoadAsync();
+        //}
+        public async override void OnNavigatedTo(NavigationParameters parameters)
         {
+            base.OnNavigatedTo(parameters);
             await LoadAsync();
         }
 
@@ -71,6 +64,12 @@ namespace FifaApp.ViewModels
             IsBusy = false;
 
             Competitions = result.Data.Competitions;
+        }
+
+        public HomePageViewModel(INavigationService navigationService, FifaClient client) : base(navigationService)
+        {
+            _fifaClient = client;
+            IsBusy = true;
         }
     }
 }

@@ -2,6 +2,8 @@
 using FifaApp.Client;
 using FifaApp.Models;
 using FifaApp.Mvvm;
+using Prism.Commands;
+using Prism.Navigation;
 using Xamarin.Forms;
 
 namespace FifaApp.ViewModels
@@ -9,8 +11,15 @@ namespace FifaApp.ViewModels
     public class CompetitionPageViewModel : ViewModelBase
     {
         private CompetitionDetail _competition;
+        private readonly FifaClient _fifaClient;
 
-       
+        public CompetitionPageViewModel(INavigationService navigationService, FifaClient fifaClient) : base(navigationService)
+        {
+            _fifaClient = fifaClient;
+            MatchCommand = new DelegateCommand<Match>(ViewMatch);
+            TeamCommand = new DelegateCommand<object>(ViewTeam);
+        }
+
         public CompetitionDetail Competition
         {
             get { return _competition; }
@@ -24,11 +33,7 @@ namespace FifaApp.ViewModels
             }
         }
 
-        public CompetitionPageViewModel()
-        {
-            MatchCommand = new Command(ViewMatch);
-            TeamCommand = new Command(ViewTeam);
-        }
+      
 
         private void ViewTeam(object obj)
         {
@@ -41,20 +46,22 @@ namespace FifaApp.ViewModels
 
         }
 
-        public override async void Init(object param = null)
+        public async override void OnNavigatedTo(NavigationParameters parameters)
         {
-            base.Init(param);
-
-            if (param is Competition competition)
+            base.OnNavigatedTo(parameters);
+            if (parameters.TryGetValue("Competition",out Competition param))
             {
-                Title = competition.CompetitionEn;
-                IsBusy = true;
-                var result = await FifaClient.Current.CompetitionAsync(competition.CompetitionId.ToString());
-                if (result.Success)
+                if (param is Competition competition)
                 {
-                    Competition = result.Data;
+                    Title = competition.CompetitionEn;
+                    IsBusy = true;
+                    var result = await _fifaClient.CompetitionAsync(competition.CompetitionId.ToString());
+                    if (result.Success)
+                    {
+                        Competition = result.Data;
+                    }
+                    IsBusy = false;
                 }
-                IsBusy = false;
             }
         }
 

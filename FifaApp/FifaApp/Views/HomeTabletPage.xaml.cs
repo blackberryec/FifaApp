@@ -9,12 +9,12 @@ using Xamarin.Forms.Xaml;
 
 namespace FifaApp.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CompetitionPage
-    {
-        public CompetitionPage()
-        {
-            InitializeComponent();
-        }
-    }
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class HomeTabletPage : ContentPage
+	{
+		public HomeTabletPage ()
+		{
+			InitializeComponent ();
+		}
+	}
 }
