@@ -6,6 +6,8 @@ using DryIoc;
 using FifaApp.Client;
 using FifaApp.ViewModels;
 using FifaApp.Views;
+using Plugin.Connectivity;
+using Prism;
 using Prism.DryIoc;
 using Xamarin.Forms;
 
@@ -16,7 +18,12 @@ namespace FifaApp
         public App()
         {
 
-            MainPage = new NavigationPage(new HomePage());
+        }
+
+        //Cho phép đăng kí một tùy chọn class thứ 2 cho app
+        public App(IPlatformInitializer initializer):base (initializer)
+        {
+            
         }
 
         protected override void OnStart()
@@ -50,13 +57,19 @@ namespace FifaApp
             Container.RegisterTypeForNavigation<NavigationPage>("Navigation");
 
             //mac dinh viewmodel map theo ten, tuy nhien su dung nhu vay cung co the gan cung
-            Container.RegisterTypeForNavigationOnIdiom<HomePage,HomePageViewModel>("Home",typeof(HomeTabletPage),typeof(HomePage));
+            Container.RegisterTypeForNavigationOnIdiom<HomePage,HomePageViewModel>("Home",typeof(HomeTabletPage),typeof(HomeTabletPage));
 
             Container.RegisterTypeForNavigation<HomePage>();
             Container.RegisterTypeForNavigation<CompetitionPage>();
 
             //ham khoi tao client
             Container.RegisterInstance(new FifaClient(), Reuse.Singleton);
+
+            //check tin hieu mang de chuyen doi su dung local data service hoặc remote data service 
+            Container.Register<IDataService, LocalDataService>(
+                setup: Setup.With(condition: r => CrossConnectivity.Current.IsConnected == false));
+            Container.Register<IDataService, RemoteDataService>(
+                setup: Setup.With(condition: r => CrossConnectivity.Current.IsConnected));
         }
 
         protected override void OnResume()

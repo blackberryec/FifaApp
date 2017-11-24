@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using DryIoc;
+using FifaApp.Client;
+using FifaApp.iOS.Services;
 using Foundation;
+using Prism.DryIoc;
 using UIKit;
 
 namespace FifaApp.iOS
@@ -23,9 +26,16 @@ namespace FifaApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(new PlatformInitializer()));
 
             return base.FinishedLaunching(app, options);
+        }
+    }
+    public class PlatformInitializer : IPlatformInitializer
+    {
+        public void RegisterTypes(IContainer container)
+        {
+            container.Register<IPlatformDataService, TouchDataService>();
         }
     }
 }

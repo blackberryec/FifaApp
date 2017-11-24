@@ -6,6 +6,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using DryIoc;
+using FifaApp.Client;
+using FifaApp.Droid.Services;
+using Prism;
+using Prism.DryIoc;
+using Xamarin.Forms.Internals;
 
 namespace FifaApp.Droid
 {
@@ -20,7 +26,15 @@ namespace FifaApp.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
+            LoadApplication(new App(new PlatformInitializer()));
+        }
+        public class PlatformInitializer : IPlatformInitializer
+        {
+            public void RegisterTypes(IContainer container)
+            {
+                //có thể quản lý memory bằng reuse
+                container.Register<IPlatformDataService,AndroidDataService>();
+            }
         }
     }
 }

@@ -12,10 +12,12 @@ namespace FifaApp.ViewModels
     {
         private CompetitionDetail _competition;
         private readonly FifaClient _fifaClient;
+        private readonly IDataService _dataService;
 
-        public CompetitionPageViewModel(INavigationService navigationService, FifaClient fifaClient) : base(navigationService)
+        public CompetitionPageViewModel(INavigationService navigationService, FifaClient fifaClient, IDataService dataService) : base(navigationService)
         {
             _fifaClient = fifaClient;
+            _dataService = dataService;
             MatchCommand = new DelegateCommand<Match>(ViewMatch);
             TeamCommand = new DelegateCommand<object>(ViewTeam);
         }

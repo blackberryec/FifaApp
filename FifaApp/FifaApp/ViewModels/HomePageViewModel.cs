@@ -13,8 +13,17 @@ namespace FifaApp.ViewModels
         private readonly FifaClient _fifaClient;
         private List<Competition> _competitions;
         private Competition _selectedCompetition;
+        private IDataService _dataService;
+        //để lôi đúng service của từng thằng Native
+        private IPlatformDataService _platformDataService;
 
-
+        public HomePageViewModel(INavigationService navigationService, FifaClient client, IDataService dataService, IPlatformDataService platformDataService) : base(navigationService)
+        {
+            _fifaClient = client;
+            _dataService = dataService;
+            _platformDataService = platformDataService;
+            IsBusy = true;
+        }
 
         public List<Competition> Competitions
         {
@@ -64,12 +73,6 @@ namespace FifaApp.ViewModels
             IsBusy = false;
 
             Competitions = result.Data.Competitions;
-        }
-
-        public HomePageViewModel(INavigationService navigationService, FifaClient client) : base(navigationService)
-        {
-            _fifaClient = client;
-            IsBusy = true;
         }
     }
 }
