@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FifaApp.Views.ViewMatch">
+    <ContentView.Content>
+        <Grid Padding="6"
+            BackgroundColor="AliceBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical">
+                <Image Source=""
+                     HeightRequest="50"
+                     WidthRequest="50"/>
+                <Label Text=""
+                     VerticalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Grid.Column="1" Orientation="Vertical">
+                <Label Text=""
+                     HorizontalOptions="Center"
+                     HorizontalTextAlignment="Center"
+                     FontAttributes="Bold"/>
+                <Label Text=""
+                     HorizontalOptions="Center"
+                     FontSize="20"
+                     HorizontalTextAlignment="Center"/>
+            </StackLayout>
+            <StackLayout Grid.Column="2"
+                         HorizontalOptions="End"
+                         Orientation="Horizontal">
+                <Image Source=""
+                       HeightRequest="50"
+                       WidthRequest="50"/>
+                <Label Text=""
+                       VerticalOptions="Center"/>
+            </StackLayout>
+        </Grid>
+        <ListView BackgroundColor="BurlyWood">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="6"
+                            BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text=""
+                                       VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="1" Orientation="Vertical">
+                                <Image Source=""
+                                       HeightRequest="50"
+                                       WidthRequest="50"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="2"
+                                         HorizontalOptions="End"
+                                         Orientation="Horizontal">
+                                <Label Text=""
+                                       VerticalOptions="Center"/>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView BackgroundColor="Aquamarine">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="6"
+                              BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text=""
+                                       VerticalOptions="Center"/>
+                                <Label Text=""
+                                       VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="1" Orientation="Vertical">
+                                <Image Source=""
+                                       HeightRequest="20"
+                                       WidthRequest="20"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="2"
+                                         HorizontalOptions="End"
+                                         Orientation="Horizontal">
+                                <Label Text=""
+                                       VerticalOptions="Center"/>
+                                <Label Text=""
+                                       VerticalOptions="Center"/>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentView.Content>
+</ContentView>
