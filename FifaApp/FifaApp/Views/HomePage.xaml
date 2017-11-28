@@ -1,36 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FifaApp.Views.HomePage">
-    <Grid>
-        <ActivityIndicator IsVisible="{Binding IsBusy}"
-                           IsRunning="{Binding IsBusy}"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"/>
-        <ListView ItemsSource="{Binding Competitions}"
-                  SelectedItem="{Binding SelectedCompetition,Mode=TwoWay}"
-                  RowHeight="60"
-                  SeparatorVisibility="None"
-                  IsPullToRefreshEnabled="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
+             xmlns:views="clr-namespace:FifaApp.Views;assembly=FifaApp"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             x:Class="FifaApp.Views.HomePage"
+             x:Name="Root">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <views:MainTemplateSelector x:Key="MainTemplateSelector">
+                <views:MainTemplateSelector.DefaultTemplate>
+                    <DataTemplate>
                         <StackLayout BackgroundColor="White"
                                      Orientation="Horizontal"
                                      Padding="10,5"
                                      Margin="0,0,0,10">
                             <Image Source="{Binding LogoImage}"
                                    HeightRequest="40"
-                                   WidthRequest="40"/>
+                                   WidthRequest="40" />
                             <Label Text="{Binding CompetitionEn}"
                                    VerticalTextAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="16"
                                    Margin="10,0"
-                                   FontAttributes="Bold"/>
+                                   FontAttributes="Bold" />
                         </StackLayout>
+                    </DataTemplate>
+                </views:MainTemplateSelector.DefaultTemplate>
+                <views:MainTemplateSelector.LiveTemplate>
+                    <DataTemplate>
+                        <StackLayout BackgroundColor="White"
+                                     Orientation="Horizontal"
+                                     Padding="10,5"
+                                     Margin="0,0,0,10">
+                            <Image Source="{Binding LogoImage}"
+                                   HeightRequest="40"
+                                   WidthRequest="40" />
+                            <Label Text="{Binding CompetitionEn}"
+                                   VerticalTextAlignment="Center"
+                                   FontSize="16"
+                                   Margin="10,0"
+                                   TextColor="LawnGreen"
+                                   FontAttributes="Bold" />
+                        </StackLayout>
+                    </DataTemplate>
+                </views:MainTemplateSelector.LiveTemplate>
+            </views:MainTemplateSelector>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+        
+        <controls:FlowListView
+                  x:Name="MainListView"
+                  FlowColumnMinWidth="200"
+                  FlowItemsSource="{Binding Competitions}"
+                  FlowGroupDisplayBinding="{Binding Key.Frist}"
+            FlowTotalRecords="1000"
+            FlowIsLoadingInfiniteEnabled="True"
+            FlowIsLoadingInfinite="{Binding IsLoadingInfinite}"
+            FlowLoadingCommand="{Binding LoadingCommand}"
+                  SelectedItem="{Binding SelectedCompetition,Mode=TwoWay}"
+                  RowHeight="60"
+                  SeparatorVisibility="None"
+                  IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsRefreshing}"
+            FlowColumnTemplate="{StaticResource MainTemplateSelector}">
+            <controls:FlowListView.FlowLoadingTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="Loading..." />
                     </ViewCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </controls:FlowListView.FlowLoadingTemplate>
+        </controls:FlowListView>
     </Grid>
 </ContentPage>

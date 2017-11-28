@@ -22,7 +22,13 @@ namespace FifaApp.Client
 
         public Task<ApiResponse<Index>> CurrentAsync()
         {
-            var api = Host + "mc/current";
+            var api = Host + $"mc/current";
+            return RESTfulService.GetAsync<Index>(api);
+        }
+
+        public Task<ApiResponse<Index>> CurrentAsync(int page, int limit)
+        {
+            var api = Host + $"mc/current?page={page}&limit={limit}";
             return RESTfulService.GetAsync<Index>(api);
         }
         public Task<ApiResponse<CompetitionDetail>> CompetitionAsync(string id)
