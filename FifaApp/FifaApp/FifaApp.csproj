@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="Client\ApiResponse.cs" />
     <Compile Include="Client\FifaClient.cs" />
+    <Compile Include="Client\MyHttpService.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Client\RESTfulService.cs" />
     <Compile Include="Converters\LiveToColorConverter.cs" />
@@ -69,9 +70,6 @@
     </Compile>
     <Compile Include="Views\HomeTabletPage.xaml.cs">
       <DependentUpon>HomeTabletPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ViewMatch.xaml.cs">
-      <DependentUpon>ViewMatch.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -135,12 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\ViewMatch.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mvvm\" />

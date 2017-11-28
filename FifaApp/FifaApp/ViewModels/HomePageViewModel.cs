@@ -36,7 +36,7 @@ namespace FifaApp.ViewModels
             get => _selectedCompetition;
             set
             {
-                if (SetProperty( ref _selectedCompetition , value))
+                if (SetProperty(ref _selectedCompetition , value))
                 {
                     OnCompetitionSelected(_selectedCompetition);
                 }

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using FifaApp.Annotations;
+using FifaApp.Client;
 using Prism.Navigation;
 using Xamarin.Forms;
 
@@ -32,6 +33,16 @@ namespace FifaApp.Mvvm
         }
         public bool IsNotBusy => !IsBusy;
 
+
+        private string _title;
+
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+
+
         public virtual void OnNavigatedFrom(NavigationParameters parameters)
         {
 
@@ -42,12 +53,21 @@ namespace FifaApp.Mvvm
 
         }
 
-        private string _title;
-
-        public string Title
+        public Task<T> RunApiAsync<T>(Func<Task<T>> func) where T : ApiResponse, new()
         {
-            get => _title;
-            set => SetProperty(ref _title, value);
+            try
+            {
+                IsBusy = true;
+                return func.Invoke();
+            }
+            catch (Exception e)
+            {
+                return Task.FromResult(new T() {Success = false});
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         //public virtual void Init(object param = null)

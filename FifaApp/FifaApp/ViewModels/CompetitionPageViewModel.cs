@@ -24,8 +24,8 @@ namespace FifaApp.ViewModels
 
         public CompetitionDetail Competition
         {
-            get { return _competition; }
-            set
+            get => _competition;
+            private set
             {
                 if (_competition != value)
                 {
@@ -56,13 +56,11 @@ namespace FifaApp.ViewModels
                 if (param is Competition competition)
                 {
                     Title = competition.CompetitionEn;
-                    IsBusy = true;
-                    var result = await _fifaClient.CompetitionAsync(competition.CompetitionId.ToString());
+                    var result = await RunApiAsync(() => _fifaClient.CompetitionAsync(competition.CompetitionId.ToString()));
                     if (result.Success)
                     {
                         Competition = result.Data;
                     }
-                    IsBusy = false;
                 }
             }
         }

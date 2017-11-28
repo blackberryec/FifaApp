@@ -60,7 +60,7 @@ namespace FifaApp
             Container.RegisterTypeForNavigationOnIdiom<HomePage,HomePageViewModel>("Home",typeof(HomeTabletPage),typeof(HomeTabletPage));
 
             Container.RegisterTypeForNavigation<HomePage>();
-            Container.RegisterTypeForNavigation<CompetitionPage>();
+            Container.RegisterTypeForNavigation<CompetitionPage, CompetitionPageViewModel>();
 
             //ham khoi tao client
             Container.RegisterInstance(new FifaClient(), Reuse.Singleton);
