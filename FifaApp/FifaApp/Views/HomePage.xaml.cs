@@ -14,6 +14,9 @@ namespace FifaApp.Views
             InitializeComponent();
 
             MainListView.On<Android>().SetIsFastScrollEnabled(true);
+
+            //Hidden NavigationBar
+            NavigationPage.SetHasNavigationBar(this,false);
         }
     }
 

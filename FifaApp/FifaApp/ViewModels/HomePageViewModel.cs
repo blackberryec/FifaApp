@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using FifaApp.Client;
 using FifaApp.Models;
 using FifaApp.Mvvm;
@@ -17,7 +18,7 @@ namespace FifaApp.ViewModels
         //private List<Competition> _competitions;
         private ObservableCollection<Competition> _competitions;
         private List<CompetitionGroupItem> _competitionGroup;
-        private Competition _selectedCompetition;
+        //private Competition _selectedCompetition;
         private IDataService _dataService;
         //để lôi đúng service của từng thằng Native
         private IPlatformDataService _platformDataService;
@@ -49,6 +50,7 @@ namespace FifaApp.ViewModels
             DeleteCommand = new DelegateCommand<Competition>(ExecuteDelete);
             RefreshCommand = new DelegateCommand(ExecuteRefresh);
             LoadingCommand = new DelegateCommand(ExecuteLoading);
+            SelectedCommand = new DelegateCommand<Competition>(OnSelected);
         }
 
         public class CompetitionGroupItem : List<Competition>
@@ -78,25 +80,25 @@ namespace FifaApp.ViewModels
         }
 
 
-        public Competition SelectedCompetition
-        {
-            get => _selectedCompetition;
-            set
-            {
-                if (SetProperty(ref _selectedCompetition , value))
-                {
-                    OnCompetitionSelected(_selectedCompetition);
-                }
-            }
-        }
+        //public Competition SelectedCompetition
+        //{
+        //    get => _selectedCompetition;
+        //    set
+        //    {
+        //        if (SetProperty(ref _selectedCompetition , value))
+        //        {
+        //            OnCompetitionSelected(_selectedCompetition);
+        //        }
+        //    }
+        //}
 
-        public async void OnCompetitionSelected(Competition selected)
+        public async void OnSelected(Competition selected)
         {
             if (selected != null)
             {
-                SelectedCompetition = null;
+
                 await NavigationService.NavigateAsync("CompetitionPage",
-                    new NavigationParameters() {{"Competition" ,selected}});
+                    new NavigationParameters {{"Competition" ,selected}});
             }
         }
         //public override async void Init(object param = null)
@@ -106,6 +108,7 @@ namespace FifaApp.ViewModels
         public async override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+
             await LoadAsync();
         }
 
@@ -115,6 +118,8 @@ namespace FifaApp.ViewModels
             {
                 return;
             }
+
+            UserDialogs.Instance.ShowLoading();
 
             var result = await RunApiAsync(() => _fifaClient.CurrentAsync());
 
@@ -127,11 +132,15 @@ namespace FifaApp.ViewModels
                         new CompetitionGroupItem(x.Select(y => y.Data).ToList()) {First = x.Key})
                     .OrderBy(x => x.First).ToList();
             }
+
+            UserDialogs.Instance.HideLoading();
         }
 
         public DelegateCommand RefreshCommand { get; }
         public DelegateCommand<Competition> DeleteCommand { get; }
-        public DelegateCommand LoadingCommand { get; set; }
+        public DelegateCommand LoadingCommand { get; }
+
+        public DelegateCommand<Competition> SelectedCommand { get; }
 
         private async void ExecuteLoading()
         {
@@ -149,7 +158,9 @@ namespace FifaApp.ViewModels
         private async void ExecuteRefresh()
         {
             Competitions.Clear();
+
             await LoadAsync();
+
             IsRefreshing = false;
         }
 

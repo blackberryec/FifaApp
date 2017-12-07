@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
@@ -25,7 +25,10 @@ namespace FifaApp.Droid
 
             base.OnCreate(bundle);
 
+            UserDialogs.Init(this);
+
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
             LoadApplication(new App(new PlatformInitializer()));
         }
         public class PlatformInitializer : IPlatformInitializer

@@ -51,23 +51,23 @@
                            IsRunning="{Binding IsBusy}"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"/>
-        
+
         <controls:FlowListView
                   x:Name="MainListView"
-                  FlowColumnMinWidth="200"
                   FlowItemsSource="{Binding Competitions}"
+                  FlowColumnMinWidth="200"
                   FlowGroupDisplayBinding="{Binding Key.Frist}"
-            FlowTotalRecords="1000"
-            FlowIsLoadingInfiniteEnabled="True"
-            FlowIsLoadingInfinite="{Binding IsLoadingInfinite}"
-            FlowLoadingCommand="{Binding LoadingCommand}"
-                  SelectedItem="{Binding SelectedCompetition,Mode=TwoWay}"
+                  FlowTotalRecords="100"
+                  FlowIsLoadingInfiniteEnabled="False"
+                  FlowIsLoadingInfinite="{Binding IsLoadingInfinite}"
+                  FlowLoadingCommand="{Binding LoadingCommand}"
+                  FlowItemTappedCommand="{Binding SelectedCommand}"
                   RowHeight="60"
                   SeparatorVisibility="None"
                   IsPullToRefreshEnabled="True"
-            RefreshCommand="{Binding RefreshCommand}"
-            IsRefreshing="{Binding IsRefreshing}"
-            FlowColumnTemplate="{StaticResource MainTemplateSelector}">
+                  RefreshCommand="{Binding RefreshCommand}"
+                  IsRefreshing="{Binding IsRefreshing}"
+                  FlowColumnTemplate="{StaticResource MainTemplateSelector}">
             <controls:FlowListView.FlowLoadingTemplate>
                 <DataTemplate>
                     <ViewCell>

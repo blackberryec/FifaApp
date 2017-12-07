@@ -40,7 +40,15 @@ namespace FifaApp
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync("/Navigation/HomePage");
+            //NavigationService.NavigateAsync("/Navigation/HomePage");
+
+            //using master page (hambuger button)
+            NavigationService.NavigateAsync("Master/Navigation/HomePage");
+
+            //using tabpage
+            //NavigationService.NavigateAsync("/Navigation/TabPage/HomePage");
+
+
 
             //if (Used is Logged)
             //{
@@ -56,8 +64,15 @@ namespace FifaApp
         {
             Container.RegisterTypeForNavigation<NavigationPage>("Navigation");
 
+            Container.RegisterTypeForNavigation<MasterPage>("Master");
+            Container.RegisterTypeForNavigation<TabPage>();
+
+            Container.RegisterTypeForNavigation<ViewAPage>();
+            Container.RegisterTypeForNavigation<ViewBPage>();
+            Container.RegisterTypeForNavigation<ViewCPage>();
+
             //mac dinh viewmodel map theo ten, tuy nhien su dung nhu vay cung co the gan cung
-            Container.RegisterTypeForNavigationOnIdiom<HomePage,HomePageViewModel>("Home",typeof(HomeTabletPage),typeof(HomeTabletPage));
+            //Container.RegisterTypeForNavigationOnIdiom<HomePage,HomePageViewModel>("Home",typeof(HomeTabletPage),typeof(HomeTabletPage));
 
             Container.RegisterTypeForNavigation<HomePage>();
             Container.RegisterTypeForNavigation<CompetitionPage, CompetitionPageViewModel>();

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  x:Class="FifaApp.Views.MasterPage">
+
+    <MasterDetailPage.Master>
+        <NavigationPage Title="Default">
+            <x:Arguments>
+                <ContentPage>
+                    <StackLayout>
+                        <Button Text="View A"
+                                Command="{Binding NavigateCommand}"
+                                CommandParameter="Mavigation/ViewAPage"/>
+                        <Button Text="View B"
+                                Command="{Binding NavigateCommand}"
+                                CommandParameter="Navigation/ViewBPage" />
+                        <Button Text="View C"
+                                Command="{Binding NavigateCommand}"
+                                CommandParameter="Navigation/ViewCPage" />
+                    </StackLayout>
+                </ContentPage>
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Master>
+    
+</MasterDetailPage>
