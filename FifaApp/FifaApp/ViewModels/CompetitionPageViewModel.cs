@@ -39,13 +39,13 @@ namespace FifaApp.ViewModels
 
         private void ViewTeam(object obj)
         {
-
+            NavigationService.NavigateAsync("TeamPage", new NavigationParameters() {{"team", obj}});
         }
 
 
         private void ViewMatch(object obj)
         {
-
+            NavigationService.NavigateAsync("MathPage", new NavigationParameters() {{"match", obj}});
         }
 
         public async override void OnNavigatedTo(NavigationParameters parameters)

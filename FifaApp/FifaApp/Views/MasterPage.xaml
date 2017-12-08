@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-                  prism:ViewModelLocator.AutowireViewModel="True"
+                  xmlns:pages="clr-namespace:FifaApp.Views"
                   x:Class="FifaApp.Views.MasterPage">
 
     <MasterDetailPage.Master>
@@ -10,15 +9,18 @@
             <x:Arguments>
                 <ContentPage>
                     <StackLayout>
+                        <Button Text="HomePage"
+                                Command="{Binding NavigateCommand}"
+                                CommandParameter="Navigation/TabPage/HomePage"/>
                         <Button Text="View A"
                                 Command="{Binding NavigateCommand}"
-                                CommandParameter="Mavigation/ViewAPage"/>
+                                CommandParameter="Navigation/TabPage/ViewAPage"/>
                         <Button Text="View B"
                                 Command="{Binding NavigateCommand}"
-                                CommandParameter="Navigation/ViewBPage" />
+                                CommandParameter="Navigation/TabPage/ViewBPage" />
                         <Button Text="View C"
                                 Command="{Binding NavigateCommand}"
-                                CommandParameter="Navigation/ViewCPage" />
+                                CommandParameter="Navigation/TabPage/ViewCPage" />
                     </StackLayout>
                 </ContentPage>
             </x:Arguments>

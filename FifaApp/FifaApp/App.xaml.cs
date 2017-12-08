@@ -43,7 +43,7 @@ namespace FifaApp
             //NavigationService.NavigateAsync("/Navigation/HomePage");
 
             //using master page (hambuger button)
-            NavigationService.NavigateAsync("Master/Navigation/HomePage");
+            NavigationService.NavigateAsync("Master/Navigation/TabPage/HomePage");
 
             //using tabpage
             //NavigationService.NavigateAsync("/Navigation/TabPage/HomePage");
@@ -68,6 +68,7 @@ namespace FifaApp
             Container.RegisterTypeForNavigation<TabPage>();
 
             Container.RegisterTypeForNavigation<ViewAPage>();
+
             Container.RegisterTypeForNavigation<ViewBPage>();
             Container.RegisterTypeForNavigation<ViewCPage>();
 
@@ -75,6 +76,8 @@ namespace FifaApp
             //Container.RegisterTypeForNavigationOnIdiom<HomePage,HomePageViewModel>("Home",typeof(HomeTabletPage),typeof(HomeTabletPage));
 
             Container.RegisterTypeForNavigation<HomePage>();
+
+            //Specify View and ViewModel
             Container.RegisterTypeForNavigation<CompetitionPage, CompetitionPageViewModel>();
 
             //ham khoi tao client
@@ -85,6 +88,10 @@ namespace FifaApp
                 setup: Setup.With(condition: r => CrossConnectivity.Current.IsConnected == false));
             Container.Register<IDataService, RemoteDataService>(
                 setup: Setup.With(condition: r => CrossConnectivity.Current.IsConnected));
+
+            //auto added by Prism Template Extension
+            Container.RegisterTypeForNavigation<TeamPage>();
+            Container.RegisterTypeForNavigation<MatchPage>();
         }
 
         protected override void OnResume()

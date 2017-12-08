@@ -1,11 +1,6 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using FifaApp.Mvvm;
 using Prism.Navigation;
-using Xamarin.Forms;
 
 namespace FifaApp.ViewModels
 {
