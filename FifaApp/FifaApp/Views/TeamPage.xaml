@@ -3,12 +3,147 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="FifaApp.Views.TeamPage">
-  <ContentPage.Content>
-      <StackLayout>
-          <Label Text="Team Page"
-                 VerticalOptions="CenterAndExpand"
-                 HorizontalOptions="CenterAndExpand"/>
-      </StackLayout>
-  </ContentPage.Content>
+             x:Class="FifaApp.Views.TeamPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout>
+            
+            
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="20" TextColor="Black" Text="Lastest Match" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="15" TextColor="Gray" Text="{Binding Team.LatestMatch.Date, StringFormat='{0:dd-MM-yyyy}'}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" />
+            </StackLayout>
+            <Grid Padding="6"
+                              BackgroundColor="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="{Binding Team.LatestMatch.HomeLogoImage}"
+                                       HeightRequest="40"
+                                       WidthRequest="40" />
+                    <Label Text="{Binding Team.LatestMatch.HomeTeamEn}"
+                                       VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout Grid.Column="1">
+                    <Label Text="{Binding Team.LatestMatch.Score}"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       FontAttributes="Bold" />
+                    <Label Text="{Binding Team.LatestMatch.Date, StringFormat='{0:dd-MM-yyyy HH-mm}'}"
+                                       HorizontalOptions="Center"
+                                       FontSize="10"
+                                       HorizontalTextAlignment="Center" />
+                </StackLayout>
+                <StackLayout Grid.Column="2"
+                                         HorizontalOptions="End"
+                                         Orientation="Horizontal">
+                    <Label Text="{Binding Team.LatestMatch.AwayTeamEn}"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="End" />
+                    <Image Source="{Binding Team.LatestMatch.AwayLogoImage}"
+                                       HeightRequest="40"
+                                       WidthRequest="40" />
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="20" TextColor="Black" Text="Next Match" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="15" TextColor="Gray" Text="{Binding Team.NextMatch.Date, StringFormat='{0:dd-MM-yyyy}'}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" />
+            </StackLayout>
+            <Grid Padding="6"
+                              BackgroundColor="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="{Binding Team.NextMatch.HomeLogoImage}"
+                                       HeightRequest="40"
+                                       WidthRequest="40" />
+                    <Label Text="{Binding Team.NextMatch.HomeTeamEn}"
+                                       VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout Grid.Column="1">
+                    <Label Text="{Binding Team.NextMatch.Score}"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       FontAttributes="Bold" />
+                    <Label Text="{Binding Team.NextMatch.Date, StringFormat='{0:dd-MM-yyyy HH-mm}'}"
+                                       HorizontalOptions="Center"
+                                       FontSize="10"
+                                       HorizontalTextAlignment="Center" />
+                </StackLayout>
+                <StackLayout Grid.Column="2"
+                                         HorizontalOptions="End"
+                                         Orientation="Horizontal">
+                    <Label Text="{Binding Team.NextMatch.AwayTeamEn}"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="End" />
+                    <Image Source="{Binding Team.NextMatch.AwayLogoImage}"
+                                       HeightRequest="40"
+                                       WidthRequest="40" />
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+            <ListView ItemsSource="{Binding Team.Competitions}"
+                  HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="6"
+                              BackgroundColor="White">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding HomeLogoImage}"
+                                       HeightRequest="40"
+                                       WidthRequest="40" />
+                                    <Label Text="{Binding HomeTeamEn}"
+                                       VerticalOptions="Center" />
+                                </StackLayout>
+                                <StackLayout Grid.Column="1">
+                                    <Label Text="{Binding Score}"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       FontAttributes="Bold" />
+                                    <Label Text="{Binding Date, StringFormat='{0:dd-MM-yyyy HH-mm}'}"
+                                       HorizontalOptions="Center"
+                                       FontSize="10"
+                                       HorizontalTextAlignment="Center" />
+                                </StackLayout>
+                                <StackLayout Grid.Column="2"
+                                         HorizontalOptions="End"
+                                         Orientation="Horizontal">
+                                    <Label Text="{Binding AwayTeamEn}"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="End" />
+                                    <Image Source="{Binding AwayLogoImage}"
+                                       HeightRequest="40"
+                                       WidthRequest="40" />
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+
+    </ContentPage.Content>
 </ContentPage>

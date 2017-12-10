@@ -15,7 +15,7 @@
 
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BindingContext.MatchCommand, Source={x:Reference Root}}"
-                                                      CommandParameter="{Binding}"/>
+                                                      CommandParameter="{Binding MatchId}"/>
                             </Grid.GestureRecognizers>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>

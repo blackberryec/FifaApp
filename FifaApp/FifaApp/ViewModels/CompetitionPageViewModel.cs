@@ -18,7 +18,7 @@ namespace FifaApp.ViewModels
         {
             _fifaClient = fifaClient;
             _dataService = dataService;
-            MatchCommand = new DelegateCommand<Match>(ViewMatch);
+            MatchCommand = new DelegateCommand<object>(ViewMatch);
             TeamCommand = new DelegateCommand<object>(ViewTeam);
         }
 
@@ -30,7 +30,7 @@ namespace FifaApp.ViewModels
                 if (_competition != value)
                 {
                     _competition = value;
-                    OnPropertyChanged();
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace FifaApp.ViewModels
 
         private void ViewMatch(object obj)
         {
-            NavigationService.NavigateAsync("MathPage", new NavigationParameters() {{"match", obj}});
+            NavigationService.NavigateAsync("MatchPage", new NavigationParameters() {{"match", obj}});
         }
 
         public async override void OnNavigatedTo(NavigationParameters parameters)
